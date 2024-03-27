@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\ApisControllers\APIFootballController;
+use App\Http\Controllers\ScrapingControllers\ScrapingController;
 
 
 
@@ -23,8 +24,12 @@ Route::middleware([
 
 
     /* APIFootballController routes */
-    Route::get('/test-api', [APIFootballController::class, 'test'])->name('test');
+    Route::get('/test-api', [APIFootballController::class, 'test'])->name('test-api');
     Route::get('/matches-by-date', [APIFootballController::class, 'matches_by_date'])->name('matches_by_date');
     /* APIFootballController routes */
+
+    /* ScrapingController routes */
+    Route::get('/test-scraper', [ScrapingController::class, 'test'])->name('test-scraper');
+    /* ScrapingController routes */
 
 });
