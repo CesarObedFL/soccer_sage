@@ -22,6 +22,6 @@ Route::middleware([
     })->name('dashboard');
 
 
-    Route::get('/test', [APIFootballController::class, 'test'])->name('test');
+    Route::get('/test-api', [APIFootballController::class, 'test'])->name('test');
 
 });

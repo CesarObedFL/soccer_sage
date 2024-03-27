@@ -11,15 +11,19 @@ use Illuminate\Support\Facades\Http;
 class APIFootballController extends Controller
 {
 
-    public function test()
+    public static function get_headers()
     {
-        $HEADERS = array(
+        return array(
             'x-rapidapi-key' => config('apis.football_api.api_football_key'),
             'x-rapidapi-host' => config('apis.football_api.api_football_host')
         );
+    }
 
-        $response = Http::withHeaders($HEADERS)->get('https://v3.football.api-sports.io/countries');
+    public function test()
+    {
+        $response = Http::withHeaders(self::get_headers())->get('https://v3.football.api-sports.io/countries');
         $data = json_decode($response);
         dd($data);
     }
+    
 }
