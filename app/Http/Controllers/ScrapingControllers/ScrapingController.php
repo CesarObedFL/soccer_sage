@@ -10,16 +10,24 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class ScrapingController extends Controller
 {
+
+    public function test()
+    {
+        return 'testing!...';
+    }
+    
     /**
      * web scraping from bettingclosed.com scores by date
      */
-    public function test() 
+    public function bettingclosed_scraping() 
     {
+        $date = date('Y-m-d');
+
         $client = new Client(HttpClient::create(['timeout' => 60])); // create the scraping request
 
         $predictions = array();
 
-        $crawler = $client->request('GET', 'https://www.bettingclosed.com/predictions/date-matches/2022-07-22/bet-type/correct-scores');
+        $crawler = $client->request('GET', "https://www.bettingclosed.com/predictions/date-matches/$date/bet-type/correct-scores");
 
         // extracting the matches table
         $matches_table = $crawler->filter('[class="tbmatches table"]')->filter('tr')->each(function($tr, $i) use (&$predictions) {

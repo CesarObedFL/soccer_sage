@@ -30,6 +30,7 @@ Route::middleware([
 
     /* ScrapingController routes */
     Route::get('/test-scraper', [ScrapingController::class, 'test'])->name('test-scraper');
+    Route::get('/bettingclosed-scraping', [ScrapingController::class, 'bettingclosed_scraping'])->name('bettingclosed-scraping');
     /* ScrapingController routes */
 
 });
