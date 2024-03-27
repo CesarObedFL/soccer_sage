@@ -22,6 +22,9 @@ Route::middleware([
     })->name('dashboard');
 
 
+    /* APIFootballController routes */
     Route::get('/test-api', [APIFootballController::class, 'test'])->name('test');
+    Route::get('/matches-by-date', [APIFootballController::class, 'matches_by_date'])->name('matches_by_date');
+    /* APIFootballController routes */
 
 });
