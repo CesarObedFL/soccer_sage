@@ -65,7 +65,8 @@ class APIFootballController extends Controller
 
     public function test()
     {
-        $response = Http::withHeaders(self::get_headers())->get('https://v3.football.api-sports.io/countries');
+        //$response = Http::withHeaders(self::get_headers())->get('https://v3.football.api-sports.io/countries');
+        $response = Http::withHeaders( self::get_headers() )->get('https://v3.football.api-sports.io/predictions', [ 'fixture' => 1162357 ]);
         $data = json_decode($response);
         dd($data);
     }
