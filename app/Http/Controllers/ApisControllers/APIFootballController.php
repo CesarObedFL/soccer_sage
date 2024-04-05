@@ -75,14 +75,13 @@ class APIFootballController extends Controller
      * 
      * @param Date the matches date
      */
-    public function matches_by_date(/*$date*/)
+    public static function matches_by_date(/*$date*/)
     {
+        ini_set('max_execution_time', 360);
         $date = date('Y-m-d');
-        $response = Http::withHeaders(self::get_headers())->get('https://v3.football.api-sports.io/fixtures?date='.$date.'&timezone=America/Mexico_City');
+        $response = Http::withHeaders( self::get_headers() )->get('https://v3.football.api-sports.io/fixtures?date='.$date.'&timezone=America/Mexico_City');
         $data = json_decode($response);
-
-        dd($data);
-
+        
         $matches_by_league = array();
         $matches = array();
         $is_bet_oportunity = false; // if a saved team is home it's == true
@@ -102,6 +101,7 @@ class APIFootballController extends Controller
                         }
 
                         array_push($matches, array(
+                                'fixture_id' => $match_one->fixture->id, // to get api predictions
                                 'date' => $match_two->fixture->date,
                                 'status' => $match_two->fixture->status,
                                 'teams'=> $match_two->teams,
@@ -143,10 +143,10 @@ class APIFootballController extends Controller
                                     return ($match_a['country'] < $match_b['country']) ? -1 : 1;
                                 });
 
-        return json_encode([
+        return [
                     'total' => count($matches_by_league),
                     'matches_by_league' => $matches_by_league
-                ]);
+                ];
     }
     
 }

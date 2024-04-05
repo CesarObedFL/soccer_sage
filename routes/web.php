@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApisControllers\APIFootballController;
 use App\Http\Controllers\ScrapingControllers\ScrapingController;
 
+use App\Livewire\Matches;
 
 
 Route::get('/', function () {
@@ -21,7 +22,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
+    
+    /* DashboardController routes */
+    Route::get('/matches', Matches::class)->name('matches');
+    /* DashboardController routes */
 
     /* APIFootballController routes */
     Route::get('/test-api', [APIFootballController::class, 'test'])->name('test-api');
@@ -32,5 +36,6 @@ Route::middleware([
     Route::get('/test-scraper', [ScrapingController::class, 'test'])->name('test-scraper');
     Route::get('/bettingclosed-scraping', [ScrapingController::class, 'bettingclosed_scraping'])->name('bettingclosed-scraping');
     /* ScrapingController routes */
+
 
 });
