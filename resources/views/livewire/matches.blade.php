@@ -47,7 +47,12 @@
                                                 @forelse ($league['matches'] as $match_index => $match)
                                                 
                                                         <tr wire:key="league-{{ $match_index }}" class="w-96 hover:bg-gray-100 transition-colors group">
-                                                            <td class="py-4 px-4 text-center">{{ $match['fixture_id'] }}</td>
+                                                            <td class="py-4 px-4 text-center">
+                                                                <button type="button" 
+                                                                    class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                                                    wire:click="$dispatch('openModal', { component: 'ApiMatchPrediction', arguments: { fixture: {{ $match['fixture_id'] }} }})">{{ $match['fixture_id'] }}
+                                                                </button>
+                                                            </td>
                                                             <td class="py-4 px-4 text-center">{{ $match['date'] }}</td>
                                                             <td class="py-4 px-4 text-center"> 
                                                                 @if ($match['status']->long == 'Match Finished') 
