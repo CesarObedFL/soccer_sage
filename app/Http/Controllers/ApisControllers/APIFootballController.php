@@ -66,7 +66,6 @@ class APIFootballController extends Controller
     public function test()
     {
         //$response = Http::withHeaders(self::get_headers())->get('https://v3.football.api-sports.io/countries');
-        $response = Http::withHeaders( self::get_headers() )->get('https://v3.football.api-sports.io/predictions', [ 'fixture' => 1162357 ]);
         $data = json_decode($response);
         dd($data);
     }
@@ -155,6 +154,18 @@ class APIFootballController extends Controller
                     'total' => count($matches_by_league),
                     'matches_by_league' => $matches_by_league
                 ];
+    }
+
+    /**
+     * get the prediction of one matche from the API by fixture (match id)
+     * 
+     * @param Integer the matches fixture id
+     */
+    public static function get_api_prediction($match_fixture)
+    {
+        $response = Http::withHeaders( self::get_headers() )->get('https://v3.football.api-sports.io/predictions', [ 'fixture' => $match_fixture ]);
+        $data = json_decode($response);
+        dd($data);
     }
     
 }
