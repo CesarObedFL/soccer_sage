@@ -86,7 +86,8 @@ class APIFootballController extends Controller
         $matches_by_league = array();
         $matches = array();
         $is_bet_oportunity = false; // if a saved team is home it's == true
-        $is_team_saved = false;  // if one of the match team  is in the saved teams array it´s == true
+        $is_home_team_saved = false;  // if home team is in the saved teams array it´s == true
+        $is_away_team_saved = false;  // if away team is in the saved teams array it´s == true
 
         // stored in the array the matches by league and country
         foreach($data->response as $match_one) {
@@ -97,8 +98,12 @@ class APIFootballController extends Controller
                             $is_bet_oportunity = true;
                         }
 
-                        if( in_array( $match_two->teams->home->name, self::$SAVED_TEAMS ) || in_array( $match_two->teams->home->name, self::$SAVED_TEAMS )) {
-                            $is_team_saved = true;
+                        if( in_array( $match_two->teams->home->name, self::$SAVED_TEAMS ) ) {
+                            $is_home_team_saved = true;
+                        }
+
+                        if( in_array( $match_two->teams->away->name, self::$SAVED_TEAMS )) {
+                            $is_away_team_saved = true;
                         }
 
                         array_push($matches, array(
@@ -108,12 +113,14 @@ class APIFootballController extends Controller
                                 'teams'=> $match_two->teams,
                                 'score' => $match_two->score,
                                 'is_bet_oportunity' => $is_bet_oportunity,
-                                'is_team_saved' => $is_team_saved
+                                'is_home_team_saved' => $is_home_team_saved,
+                                'is_away_team_saved' => $is_away_team_saved 
                             )
                         );
                     } // endif ($match_one->league->country === $match_two->league->country)
                     $is_bet_oportunity = false;
-                    $is_team_saved = false;
+                    $is_home_team_saved = false;
+                    $is_away_team_saved = false;
                 } // endif ($match_one->league->name === $match_two->league->name)
 
             } // endforeach($data->response as $match_two)

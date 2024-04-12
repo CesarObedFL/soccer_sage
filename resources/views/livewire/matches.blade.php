@@ -36,7 +36,8 @@
                                                     {{ $match['status']->long . ' - ' . 'min: ' . $match['status']->elapsed }} &bull;
                                                     {{ $match['teams']->home->name }} <b><i>vs</i></b> {{ $match['teams']->away->name }} &bull; 
                                                     {{ ($match['score']->fulltime->home) ? ($match['score']->fulltime->home) . ':' . ($match['score']->fulltime->away) : ($match['score']->halftime->home) . ':' . ($match['score']->halftime->home)}} &bull;
-                                                    team_saved: {{ ($match['is_team_saved']) ? 'true' : 'false' }} &bull; 
+                                                    is_home_team_saved: {{ ($match['is_home_team_saved']) ? 'true' : 'false' }} &bull; 
+                                                    is_away_team_saved: {{ ($match['is_away_team_saved']) ? 'true' : 'false' }} &bull; 
                                                     bet_oportunity: {{ ($match['is_bet_oportunity']) ? 'true' : 'false' }}
                                                 </li>
                                             @empty
