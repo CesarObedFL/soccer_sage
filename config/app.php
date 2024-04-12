@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => 'soccer sage',//env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------

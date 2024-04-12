@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <!-- <x-application-mark class="block h-9 w-auto" /> -->
+                        <img src="{{ asset('images/app/soccer_sage_logo.png') }}" alt="Soccer Sage Logo" width="50px" />
                     </a>
                 </div>
 
