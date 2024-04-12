@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MainController;
 
 use App\Http\Controllers\ApisControllers\APIFootballController;
 use App\Http\Controllers\ScrapingControllers\ScrapingController;
@@ -22,6 +23,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+
+    Route::get('/test', [MainController::class, 'test'])->name('test');
     
     /* DashboardController routes */
     Route::get('/matches', Matches::class)->name('matches');

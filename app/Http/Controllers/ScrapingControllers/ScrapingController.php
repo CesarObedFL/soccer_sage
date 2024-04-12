@@ -19,7 +19,7 @@ class ScrapingController extends Controller
     /**
      * web scraping from bettingclosed.com scores by date
      */
-    public function bettingclosed_scraping() 
+    public static function bettingclosed_scraping() 
     {
         $date = date('Y-m-d');
 
@@ -78,7 +78,7 @@ class ScrapingController extends Controller
         });
 
 
-        dd($predictions);
+        return $predictions;
 
     }
 }
