@@ -106,7 +106,7 @@ class APIFootballController extends Controller
                         }
 
                         array_push($matches, array(
-                                'fixture_id' => $match_one->fixture->id, // to get api predictions
+                                'fixture_id' => $match_two->fixture->id, // to get api predictions
                                 'date' => $match_two->fixture->date,
                                 'status' => $match_two->fixture->status,
                                 'teams'=> $match_two->teams,
