@@ -1,8 +1,8 @@
 <div>
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                Match Prediction
+    <div class="relative p-4 w-full max-w-2xl">
+        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900">
+                Match Prediction : {{ $fixture }}
             </h3>
             <button wire:click="close" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -14,10 +14,36 @@
         <!-- Modal body -->
         <div class="p-4 md:p-5 space-y-4">
             <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                {{ $fixture }}
-            </p>
-            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation (G.D.P.R.) goes into effect on May 25 and is meant to ensure a common set of data rights in the European Union. It requires organizations to notify users as soon as possible of high-risk data breaches that could personally affect them.
+                <ul class="space-y-4 text-gray-500 list-disc list-inside dark:text-gray-400">
+                    <li>
+                        Winner
+                        <ol class="ps-5 mt-2 space-y-1 list-decimal list-inside">
+                            <li>{{ '$prediction->winner->name' }}</li>
+                            <li>{{ '$prediction->winner->comment' }}</li>
+                        </ol>
+                    </li>
+                    <li>
+                        Percents
+                        <ul class="ps-5 mt-2 space-y-1 list-decimal list-inside">
+                            <li>Home: {{ '$prediction->percent->home' }}</li>
+                            <li>Draw: {{ '$prediction->percent->draw' }}</li>
+                            <li>Away: {{ '$prediction->percent->away' }}</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Advice
+                        <ul class="ps-5 mt-2 space-y-1 list-decimal list-inside">
+                            <li>{{ '$prediction->advice' }}</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Goals
+                        <ul class="ps-5 mt-2 space-y-1 list-decimal list-inside">
+                            <li>Home: {{ '$prediction->goals->home' }}</li>
+                            <li>Away: {{ '$prediction->goals->away' }}</li>
+                        </ul>
+                    </li>
+                </ul>
             </p>
         </div>
         <!-- Modal footer -->

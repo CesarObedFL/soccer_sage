@@ -77,7 +77,7 @@ class APIFootballController extends Controller
      */
     public static function matches_by_date(/*$date*/)
     {
-        ini_set('max_execution_time', 360);
+        ini_set('max_execution_time', 3600);
         $date = date('Y-m-d');
         $response = Http::withHeaders( self::get_headers() )->get('https://v3.football.api-sports.io/fixtures?date='.$date.'&timezone=America/Mexico_City');
         $data = json_decode($response);

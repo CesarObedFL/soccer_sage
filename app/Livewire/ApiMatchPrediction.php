@@ -11,11 +11,13 @@ class ApiMatchPrediction extends ModalComponent
 
     public $fixture;
     public $data;
+    public $prediction;
 
     public function mount($fixture)
     {
         $this->fixture = $fixture;
-        $this->data = APIFootballController::get_api_prediction($this->fixture);
+        //$this->data = APIFootballController::get_api_prediction($this->fixture);
+        //$this->prediction = $this->data->response->predictions;
     }
 
     public function render()
@@ -31,7 +33,7 @@ class ApiMatchPrediction extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        return '7xl';
+        return '3xl';
     }
 
     public static function closeModalOnEscape(): bool

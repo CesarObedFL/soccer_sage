@@ -12,7 +12,8 @@ class MainController extends Controller
     public function test()
     {
         //$data = APIFootballController::matches_by_date();
-        $data = ScrapingController::bettingclosed_scraping();
-        dd($data);
+        //$data = ScrapingController::bettingclosed_scraping();
+        $data = APIFootballController::get_api_prediction(1150344);
+        dd($data->response);
     }
 }
