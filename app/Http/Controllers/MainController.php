@@ -13,7 +13,7 @@ class MainController extends Controller
     {
         //$data = APIFootballController::matches_by_date();
         //$data = ScrapingController::bettingclosed_scraping();
-        $data = APIFootballController::get_api_prediction(1150344);
-        dd($data->response);
+        $data = APIFootballController::get_api_prediction();
+        dd($data);
     }
 }
