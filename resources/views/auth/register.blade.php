@@ -1,7 +1,8 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <!-- <x-authentication-card-logo /> -->
+            <img src="{{ asset('images/app/soccer_sage_logo.png') }}" alt="Soccer Sage Logo" width="250px" />
         </x-slot>
 
         <x-validation-errors class="mb-4" />
