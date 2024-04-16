@@ -6,7 +6,7 @@ use LivewireUI\Modal\ModalComponent;
 
 use App\Http\Controllers\ApisControllers\APIFootballController;
 
-class ApiMatchPrediction extends ModalComponent
+class MatchPrediction extends ModalComponent
 {
 
     public $fixture;
@@ -22,7 +22,7 @@ class ApiMatchPrediction extends ModalComponent
 
     public function render()
     {
-        return view('livewire.api-match-prediction');
+        return view('livewire.match-prediction');
     }
 
     public function close()

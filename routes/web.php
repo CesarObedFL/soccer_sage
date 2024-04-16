@@ -34,6 +34,7 @@ Route::middleware([
     /* APIFootballController routes */
     Route::get('/test-api', [APIFootballController::class, 'test'])->name('test-api');
     Route::get('/matches-by-date', [APIFootballController::class, 'matches_by_date'])->name('matches_by_date');
+    Route::get('/get-api-prediction/{match_fixture}', [APIFootballController::class, 'get_api_prediction'])->name('get_api_prediction');
     /* APIFootballController routes */
 
     /* ScrapingController routes */
