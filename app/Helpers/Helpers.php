@@ -12,7 +12,8 @@ class Helpers
      * 
      * @return Integer with the percetage of similarity of the two strings
      */
-    public static function calculate_string_similarity($string_one, $string_two) {
+    public static function calculate_string_similarity($string_one, $string_two) 
+    {
         // calculate levenshtein distance between the two strings
         $distance = levenshtein($string_one, $string_two);
     
