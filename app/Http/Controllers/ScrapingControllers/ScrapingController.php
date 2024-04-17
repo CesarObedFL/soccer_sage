@@ -77,7 +77,6 @@ class ScrapingController extends Controller
 
         });
 
-        dd($predictions);
         return $predictions;
 
     }

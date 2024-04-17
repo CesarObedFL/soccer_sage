@@ -48,11 +48,12 @@
                                                     <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Home Team Saved</th>
                                                     <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Away Team Saved</th>
                                                     <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Bet Oportunity</th>
+                                                    <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Bettingclosed Prediction</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="w-96">
                                             @forelse ($league['matches'] as $match_index => $match)
-                                            
+
                                                     <tr wire:key="league-{{ $match_index }}" class="w-96 hover:bg-gray-100 transition-colors group">
                                                         <td class="py-4 px-4 text-center">
                                                             <button type="button" 
@@ -94,6 +95,7 @@
                                                                 <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2 py-1.5 rounded border border-red-400 uppercase">false</span> 
                                                             @endif
                                                         </td>
+                                                        <td class="py-4 px-4 text-center">@if( isset($match['bettingclosed_scraping_prediction']) ) {{ $match['bettingclosed_scraping_prediction']['home'] . ' ' . $match['bettingclosed_scraping_prediction']['score_prediction'] . ' ' . $match['bettingclosed_scraping_prediction']['away']  }} @else {{ ' - ' }} @endif</td> 
                                                     </tr>
                                                 
                                             @empty
