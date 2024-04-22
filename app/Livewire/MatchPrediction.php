@@ -16,8 +16,8 @@ class MatchPrediction extends ModalComponent
     public function mount($fixture)
     {
         $this->fixture = $fixture;
-        //$this->data = APIFootballController::get_api_prediction($this->fixture);
-        //$this->prediction = $this->data->response->predictions;
+        $this->data = APIFootballController::get_api_prediction($this->fixture);
+        $this->prediction = $this->data->response[0]->predictions;
     }
 
     public function render()

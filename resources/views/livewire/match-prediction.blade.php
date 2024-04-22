@@ -18,29 +18,29 @@
                     <li>
                         Winner
                         <ol class="ps-5 mt-2 space-y-1 list-decimal list-inside">
-                            <li>{{ '$prediction->winner->name' }}</li>
-                            <li>{{ '$prediction->winner->comment' }}</li>
+                            <li>{{ $prediction->winner->name }}</li>
+                            <li>{{ $prediction->winner->comment }}</li>
                         </ol>
                     </li>
                     <li>
                         Percents
                         <ul class="ps-5 mt-2 space-y-1 list-decimal list-inside">
-                            <li>Home: {{ '$prediction->percent->home' }}</li>
-                            <li>Draw: {{ '$prediction->percent->draw' }}</li>
-                            <li>Away: {{ '$prediction->percent->away' }}</li>
+                            <li>Home: {{ $prediction->percent->home }}</li>
+                            <li>Draw: {{ $prediction->percent->draw }}</li>
+                            <li>Away: {{ $prediction->percent->away }}</li>
                         </ul>
                     </li>
                     <li>
                         Advice
                         <ul class="ps-5 mt-2 space-y-1 list-decimal list-inside">
-                            <li>{{ '$prediction->advice' }}</li>
+                            <li>{{ $prediction->advice }}</li>
                         </ul>
                     </li>
                     <li>
                         Goals
                         <ul class="ps-5 mt-2 space-y-1 list-decimal list-inside">
-                            <li>Home: {{ '$prediction->goals->home' }}</li>
-                            <li>Away: {{ '$prediction->goals->away' }}</li>
+                            <li>Home: {{ $prediction->goals->home }}</li>
+                            <li>Away: {{ $prediction->goals->away }}</li>
                         </ul>
                     </li>
                 </ul>

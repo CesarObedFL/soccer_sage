@@ -165,7 +165,7 @@ class APIFootballController extends Controller
     {
         $response = Http::withHeaders( self::get_headers() )->get('https://v3.football.api-sports.io/predictions', [ 'fixture' => $match_fixture ]);
         $data = json_decode($response);
-        dd($data);
+        return $data;
     }
     
 }
