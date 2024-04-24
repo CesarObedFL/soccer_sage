@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ScrapingControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
@@ -13,7 +14,8 @@ class ScrapingController extends Controller
 
     public function test()
     {
-        return 'testing!...';
+        $data = self::forebet_scraping();
+        dd($data);
     }
     
     /**
@@ -46,7 +48,7 @@ class ScrapingController extends Controller
                     return $class->text();
                 });
 
-                // return table data founded
+                // return found table data
                 return [ 'home' => $team_home, 'score_prediction' => $score_prediction, 'away' => $team_away, 'match_date' => $match_date ];
             });
             
@@ -78,6 +80,103 @@ class ScrapingController extends Controller
         });
 
         return $predictions;
-
+        
     }
+
+
+    /**
+     * web scraping from forebet.com today's scores 
+     */
+    public static function forebet_scraping()
+    {
+        $date = date('Y-m-d');
+        $client = new Client(HttpClient::create(['timeout' => 60])); // create the scraping request
+        $predictions = array();
+        $crawler = $client->request('GET', "https://www.forebet.com/es/predicciones-para-hoy"); // https://www.forebet.com/es/predicciones-de-futbol/predicciones-1x2/$date
+
+        // extracting the matches table
+        $matches_table = $crawler->filter('[class="rcnt tr_0"]')->each(function($div, $i) use (&$predictions) {
+            $match_scraped_teams = $div->filter('[class="tnms"]')->each(function($span, $i) {
+                $team_home = $span->filter('[class="homeTeam"] > span')->each(function($class, $i) { return $class->text(); });
+                $team_away = $span->filter('[class="awayTeam"] > span')->each(function($class, $i) { return $class->text(); });
+                $match_date = $span->filter('[class="date_bah"]')->each(function($class, $i) { return $class->text(); });
+                return [ 'home' => $team_home, 'away' => $team_away, 'match_date' => $match_date ];
+            });
+
+            $exact_scraped_score = $div->filter('[class="ex_sc tabonly"]')->first()->count() > 0 ? $div->filter('[class="ex_sc tabonly"]')->text() : ' - ';
+
+            $scraped_probabilities_in_percentage = $div->filter('[class="fprc"]')->each(function($span, $i) { 
+                $data = $span->filter('span')->each(function($data, $i) { return $data->text(); });
+                return $data;
+            });
+
+            $match = array();
+            $probabilities_in_percentage = array();
+            $array_temp = self::flatten_array($match_scraped_teams);
+            $match = Arr::add($match, 'home', $array_temp[0]);
+            $match = Arr::add($match, 'away', $array_temp[1]);
+            $match = Arr::add($match, 'date', $array_temp[2]);
+            $match = Arr::add($match, 'exact_score', $exact_scraped_score);
+            $array_temp = self::flatten_array($scraped_probabilities_in_percentage);
+            if ( count($array_temp) == 3 ) {
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', $array_temp[0]);
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', $array_temp[1]);
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'away', $array_temp[2]);
+            }
+            $match = Arr::add($match, 'probabilities_in_percentage', $probabilities_in_percentage);
+    
+            array_push($predictions, [ 'match_teams' => $match ]); 
+    
+            return $match;
+        });
+
+        // extracting the matches table
+        $matches_table = $crawler->filter('[class="rcnt tr_1"]')->each(function($div, $i) use (&$predictions) {
+            $match_scraped_teams = $div->filter('[class="tnms"]')->each(function($span, $i) {
+                $team_home = $span->filter('[class="homeTeam"] > span')->each(function($class, $i) { return $class->text(); });
+                $team_away = $span->filter('[class="awayTeam"] > span')->each(function($class, $i) { return $class->text(); });
+                $match_date = $span->filter('[class="date_bah"]')->each(function($class, $i) { return $class->text(); });
+                return [ 'home' => $team_home, 'away' => $team_away, 'match_date' => $match_date ];
+            });
+
+            $exact_scraped_score = $div->filter('[class="ex_sc tabonly"]')->first()->count() > 0 ? $div->filter('[class="ex_sc tabonly"]')->text() : ' - ';
+
+            $scraped_probabilities_in_percentage = $div->filter('[class="fprc"]')->each(function($span, $i) { 
+                $data = $span->filter('span')->each(function($data, $i) { return $data->text(); });
+                return $data;
+            });
+
+            $match = array();
+            $probabilities_in_percentage = array();
+            $array_temp = self::flatten_array($match_scraped_teams);
+            $match = Arr::add($match, 'home', $array_temp[0]);
+            $match = Arr::add($match, 'away', $array_temp[1]);
+            $match = Arr::add($match, 'date', $array_temp[2]);
+            $match = Arr::add($match, 'exact_score', $exact_scraped_score);
+            $array_temp = self::flatten_array($scraped_probabilities_in_percentage);
+            if ( count($array_temp) == 3 ) {
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', $array_temp[0]);
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', $array_temp[1]);
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'away', $array_temp[2]);
+            }
+            $match = Arr::add($match, 'probabilities_in_percentage', $probabilities_in_percentage);
+    
+            array_push($predictions, [ 'match_teams' => $match ]); 
+    
+            return $match;
+        });
+
+        return $predictions;
+    }
+    
+    public static function flatten_array($data) {
+        $new_array = array();
+        array_walk_recursive($data, function ($value, $key) use (&$new_array) {
+            if (!is_array($value)) {
+                $new_array[] = $value;
+            }
+        });
+        return $new_array;
+    }
+
 }
