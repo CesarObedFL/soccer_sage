@@ -9,6 +9,8 @@ use Illuminate\Support\Arr;
 use Goutte\Client;
 use Symfony\Component\HttpClient\HttpClient;
 
+use App\Helpers\Helpers;
+
 class ScrapingController extends Controller
 {
 
@@ -112,12 +114,12 @@ class ScrapingController extends Controller
 
             $match = array();
             $probabilities_in_percentage = array();
-            $array_temp = self::flatten_array($match_scraped_teams);
+            $array_temp = Helpers::flatten_array($match_scraped_teams);
             $match = Arr::add($match, 'home', $array_temp[0]);
             $match = Arr::add($match, 'away', $array_temp[1]);
             $match = Arr::add($match, 'date', $array_temp[2]);
             $match = Arr::add($match, 'exact_score', $exact_scraped_score);
-            $array_temp = self::flatten_array($scraped_probabilities_in_percentage);
+            $array_temp = Helpers::flatten_array($scraped_probabilities_in_percentage);
             if ( count($array_temp) == 3 ) {
                 $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', $array_temp[0]);
                 $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', $array_temp[1]);
@@ -148,12 +150,12 @@ class ScrapingController extends Controller
 
             $match = array();
             $probabilities_in_percentage = array();
-            $array_temp = self::flatten_array($match_scraped_teams);
+            $array_temp = Helpers::flatten_array($match_scraped_teams);
             $match = Arr::add($match, 'home', $array_temp[0]);
             $match = Arr::add($match, 'away', $array_temp[1]);
             $match = Arr::add($match, 'date', $array_temp[2]);
             $match = Arr::add($match, 'exact_score', $exact_scraped_score);
-            $array_temp = self::flatten_array($scraped_probabilities_in_percentage);
+            $array_temp = Helpers::flatten_array($scraped_probabilities_in_percentage);
             if ( count($array_temp) == 3 ) {
                 $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', $array_temp[0]);
                 $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', $array_temp[1]);
@@ -169,14 +171,6 @@ class ScrapingController extends Controller
         return $predictions;
     }
     
-    public static function flatten_array($data) {
-        $new_array = array();
-        array_walk_recursive($data, function ($value, $key) use (&$new_array) {
-            if (!is_array($value)) {
-                $new_array[] = $value;
-            }
-        });
-        return $new_array;
-    }
+
 
 }

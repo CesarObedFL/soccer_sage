@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 class Helpers
 {
+    
     /**
      * Function to compare the similarity of two strings using the leveshtein algorithm
      * 
@@ -25,4 +26,24 @@ class Helpers
     
         return $similarity;
     }
+
+
+    /**
+     * Function to make an flat an array
+     * 
+     * @param Array with the data array
+     * 
+     * @return Array with the flat array
+     */
+    public static function flatten_array($array_data) {
+        $new_array = array();
+        array_walk_recursive($array_data, function ($value, $key) use (&$new_array) {
+            if ( !is_array($value) ) {
+                $new_array[] = $value;
+            }
+        });
+        return $new_array;
+    }
+
+
 }
