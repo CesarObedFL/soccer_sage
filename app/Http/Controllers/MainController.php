@@ -32,13 +32,21 @@ class MainController extends Controller
     public static function get_matches()
     {
         $api_data = APIFootballController::matches_by_date();
-        $scraping_data = ScrapingController::bettingclosed_scraping();
+        $bettingclosed_scraping_data = ScrapingController::bettingclosed_scraping();
+        $forebet_scraping_data = ScrapingController::forebet_scraping();
         
         foreach( $api_data['matches_by_league'] as $index => $league ) {
             foreach( $league['matches'] as $key => $match ) {
-                foreach( $scraping_data as $match_scraped ) {
-                    if ( (Helpers::calculate_string_similarity($match['teams']->home->name, $match_scraped['home']) > 75) && (Helpers::calculate_string_similarity($match['teams']->away->name, $match_scraped['away']) > 75) ) {
+                foreach( $bettingclosed_scraping_data as $match_scraped ) {
+                    if ( (Helpers::calculate_string_similarity($match['teams']->home->name, $match_scraped['home']) > 50) && (Helpers::calculate_string_similarity($match['teams']->away->name, $match_scraped['away']) > 50) ) {
                         $api_data['matches_by_league'][$index]['matches'][$key] = Arr::add($api_data['matches_by_league'][$index]['matches'][$key], 'bettingclosed_scraping_prediction', $match_scraped );
+                        break;
+                    }
+                }
+
+                foreach( $forebet_scraping_data as $match_scraped ) {
+                    if ( (Helpers::calculate_string_similarity($match['teams']->home->name, $match_scraped['home']) > 50) && (Helpers::calculate_string_similarity($match['teams']->away->name, $match_scraped['away']) > 50) ) {
+                        $api_data['matches_by_league'][$index]['matches'][$key] = Arr::add($api_data['matches_by_league'][$index]['matches'][$key], 'forebet_scraping_prediction', $match_scraped );
                         break;
                     }
                 }
