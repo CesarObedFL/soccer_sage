@@ -1,6 +1,6 @@
 # _Soccer Sage_
 
-This is a sistem to get all of the football, professional and semiprofessional games in the world, to save your favorite football teams and get if their next matches plays in home and there is a bet oportunity...
+This is a system to get all of the football, professional and semiprofessional games in the world, to save your favorite football teams and get if their next matches plays in home and there is a bet oportunity...
 
 ## Technologies
 
