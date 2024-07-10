@@ -33,8 +33,8 @@ class MainController extends Controller
     {
         ini_set('max_execution_time', 3600);
         $api_data = APIFootballController::matches_by_date();
-        $bettingclosed_scraping_data = ScrapingController::bettingclosed_scraping();
-        $forebet_scraping_data = ScrapingController::forebet_scraping();
+        $bettingclosed_scraping_data = array(); //ScrapingController::bettingclosed_scraping();
+        $forebet_scraping_data = array(); //ScrapingController::forebet_scraping();
         
         foreach( $api_data['matches_by_league'] as $index => $league ) {
             foreach( $league['matches'] as $key => $match ) {

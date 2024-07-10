@@ -42,6 +42,9 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <x-footer />
+            <br>
         </div>
 
         @stack('modals')
