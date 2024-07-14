@@ -17,6 +17,9 @@
 
         <link rel="icon" href="{{ asset('images/app/soccer_sage_favicon.ico') }}">
 
+        <link rel="stylesheet" href="{{ asset('assets/app/styles/welcome_banner_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('assets/app/styles/styles.css') }}">
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 

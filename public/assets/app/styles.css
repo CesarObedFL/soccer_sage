@@ -1,0 +1,13 @@
+/* fonts */
+@font-face {
+    font-family: "sharpie";
+    src: url(../fonts/sharpie/sharpie.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+.page-title {
+    font-family: "sharpie", Helvetica;
+    font-size: 40px;
+}
