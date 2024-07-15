@@ -24,18 +24,21 @@
                 <div class="flex flex-col md:flex-row overflow-hidden bg-white rounded-lg shadow-xl mt-4 w-100 mx-2">
                     <ul>
                         @forelse ($matches_by_league as $league_index => $league)
-                            <!-- media -->
-                            <!-- <div class="h-64 w-auto md:w-1/2"> -->
-                                <!-- <img class="inset-0 h-full w-full object-cover object-center" width="50" src="{{ $league['league_logo'] }}"/> -->
-                            <!-- </div> -->
                             <!-- content -->
                             <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
-                                <h3 class="font-semibold text-lg leading-tight truncate">{{ $league['league'] }}</h3>
-                                <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
-                                    {{ $league['country'] }} &bull; {{ $league['season'] }} &bull; {{ $league['round'] }} 
-                                </p>
+                                <!-- league/competence info -->
+                                <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 dark:border-gray-700">
+                                    <img class="object-cover w-50 px-10 rounded-t-lg h-30 md:rounded-none md:rounded-s-lg" src="{{ $league['league_logo'] }}" alt="">
+                                    <div class="flex flex-col justify-between p-8 leading-normal">
+                                        <h3 class="font-semibold text-lg leading-tight truncate">{{ $league['league'] }}</h3>
+                                        <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                                            {{ $league['country'] }} &bull; {{ $league['season'] }} &bull; {{ $league['round'] }} 
+                                        </p>
+                                    </div>
+                                </div>  
+                                <!-- league/competence info -->
+
                                 <p class="mt-2">
-                                    <br>
                                     <ul>
                                         <table class="w-full">
                                             <thead>
