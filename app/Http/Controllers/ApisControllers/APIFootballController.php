@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 //use Goutte\Client;
 use Illuminate\Support\Facades\Http;
 
+use Carbon\Carbon;
+
 class APIFootballController extends Controller
 {
     protected static $SAVED_TEAMS = array(
@@ -107,7 +109,7 @@ class APIFootballController extends Controller
 
                         array_push($matches, array(
                                 'fixture_id' => $match_two->fixture->id, // to get api predictions
-                                'date' => $match_two->fixture->date,
+                                'date' => Carbon::parse($match_two->fixture->date, 'America/Mexico_City'),
                                 'status' => $match_two->fixture->status,
                                 'teams'=> $match_two->teams,
                                 'score' => $match_two->score,
