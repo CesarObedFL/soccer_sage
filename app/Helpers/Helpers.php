@@ -46,4 +46,38 @@ class Helpers
     }
 
 
+    /**
+     * Function to ignore a duplicate elements of an array
+     * 
+     * @param Array associative with the elements to compare
+     * @param String key to check if it is duplicate element
+     * @param Integer with the value to check the similarity using the self::calculate_string_similarity function
+     * 
+     * @return Array without similar values 
+     */
+    public static function ignore_array_duplicate_elements($array, $key, $umbral) {
+        // array to store the unique elements
+        $result = array();
+        
+        // foreach element of the elements asiciative array
+        foreach ($array as $i => $value) {
+            $is_similar = false;
+            
+            // compares the actual value with the result value
+            foreach ($result as $j => $res_value) {
+                if (self::calculate_string_similarity($array[$i][$key], $result[$j][$key]) == $umbral) {
+                    $is_similar = true;
+                    break;
+                }
+            }
+            
+            // if it is not similar, add to the result array
+            if ( !$is_similar ) {
+                $result[] = $value;
+            }
+        }
+        
+        return $result;
+    }
+
 }

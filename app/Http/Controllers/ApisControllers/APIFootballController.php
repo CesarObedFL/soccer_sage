@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 //use Goutte\Client;
 use Illuminate\Support\Facades\Http;
 
+use App\Helpers\Helpers;
 use Carbon\Carbon;
 
 class APIFootballController extends Controller
@@ -94,7 +95,7 @@ class APIFootballController extends Controller
         foreach($data->response as $match_one) {
             foreach($data->response as $match_two) {
                 if ($match_one->league->name === $match_two->league->name) {
-                    if ($match_one->league->country === $match_two->league->country) {
+                    if ($match_one->league->country === $match_two->league->country ) {
                         if( in_array( $match_two->teams->home->name, self::$SAVED_TEAMS ) ) {
                             $is_bet_oportunity = true;
                         }
@@ -127,23 +128,25 @@ class APIFootballController extends Controller
             } // endforeach($data->response as $match_two)
 
             // matches by league array
-            array_push($matches_by_league, array(
-                                                'league' => $match_one->league->name,
-                                                'league_logo' => $match_one->league->logo,
-                                                'country' => $match_one->league->country,
-                                                'country_flag' => $match_one->league->flag,
-                                                'total_matches' => count($matches),
-                                                'season' => $match_one->league->season,
-                                                'round' => $match_one->league->round,
-                                                'matches' => $matches
-                                            ));
+            //if ( !in_array($matches_by_league, array_column('round', $match_one->league->round)) ) {
+                array_push($matches_by_league, array(
+                                                    'league' => $match_one->league->name,
+                                                    'league_logo' => $match_one->league->logo,
+                                                    'country' => $match_one->league->country,
+                                                    'country_flag' => $match_one->league->flag,
+                                                    'total_matches' => count($matches),
+                                                    'season' => $match_one->league->season,
+                                                    'round' => $match_one->league->round,
+                                                    'matches' => $matches
+                                                ));
+            //}
             $matches = array(); // reinitializing matches array...
 
         } // endforeach($data->response as $match_one)
 
         // removing duplicate objects 
         $matches_by_league = array_map("unserialize", array_unique(array_map("serialize", $matches_by_league)));
-        
+        $matches_by_league = Helpers::ignore_array_duplicate_elements($matches_by_league, 'league', 100);
         // sorting by country
         usort($matches_by_league, function ($match_a, $match_b) {
                                     if ($match_a['country'] == $match_b['country']) {
