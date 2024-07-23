@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-12xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-12xl mx-auto sm:px-6 lg:px-4">
             <!-- container for all cards -->
             <div class="container w-100 lg:w-4/5 mx-auto flex flex-col">
 
