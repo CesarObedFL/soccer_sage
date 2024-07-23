@@ -78,7 +78,7 @@
                                                                 {{ ' min: ' . $match['status']->elapsed }}
                                                             </td>
                                                         <td class="py-4 px-4 text-center">{{ $match['teams']->home->name }} <b><i>vs</i></b> {{ $match['teams']->away->name }}</td>
-                                                        <td class="py-4 px-4 text-center">{{ ($match['score']->fulltime->home) ? ($match['score']->fulltime->home) . ':' . ($match['score']->fulltime->away) : ($match['score']->halftime->home) . ':' . ($match['score']->halftime->home)}}</td>
+                                                        <td class="py-4 px-4 text-center">{{ ($match['score']->fulltime->home) ? ($match['score']->fulltime->home) . ':' . ($match['score']->fulltime->away) : ($match['score']->halftime->home) . ':' . ($match['score']->halftime->away)}}</td>
                                                         <td class="py-4 px-4 text-center">
                                                             @if ($match['is_home_team_saved'])
                                                                 <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2 py-1.5 rounded border border-green-400 uppercase">true</span> 
