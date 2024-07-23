@@ -16,7 +16,7 @@ class ScrapingController extends Controller
 
     public function test()
     {
-        $data = self::forebet_scraping();
+        $data = null;//self::pronosticosfutbol365_scraping();
         dd($data);
     }
     
@@ -171,6 +171,53 @@ class ScrapingController extends Controller
         return $predictions;
     }
     
+    /**
+     * web scraping from pronosticosfutbol365.com today's scores 
+     */
+    public static function pronosticosfutbol365_scraping()
+    {
+        $client = new Client(HttpClient::create(['timeout' => 60])); // create the scraping request
+
+        $predictions = array();
+
+        $crawler = $client->request('GET', "https://pronosticosfutbol365.com/predicciones-de-futbol/");  
+        
+        // extracting the matches table
+        $matches_table = $crawler->filter('[class="match"]')->each(function($div, $i) use (&$predictions) {
+            $match_scraped_teams = $div->filter('[class="matchrow"]')->filter('[class="teams"]')->each(function($div_teams, $i) {
+                $team_home = $div_teams->filter('[class="hostteam"]')->filter('[class="name"]')->each(function($class, $i) { return $class->text(); });
+                $team_away = $div_teams->filter('[class="guestteam"]')->filter('[class="name"]')->each(function($class, $i) { return $class->text(); });
+                return [ 'home' => $team_home, 'away' => $team_away, 'match_date' => null ];
+            });
+
+            $scraped_probabilities_in_percentage = $div->filter('[class="inforow"]')->each(function($span, $i) { 
+                //$data = $span->filter('[class="coefbox separate"]')->filter('div')->each(function($data, $i) { return $data->text(); });
+                $data = $span->filter('div')->each(function($data, $i) { return $data->text(); });
+                return $data[0];
+            });
+
+            $match = array();
+            $probabilities_in_percentage = array();
+            $array_temp = Helpers::flatten_array($match_scraped_teams);
+            $match = Arr::add($match, 'home', $array_temp[0]);
+            $match = Arr::add($match, 'away', $array_temp[1]);
+            $match = Arr::add($match, 'date', $array_temp[2]);
+            $match = Arr::add($match, 'exact_score', null); 
+            $array_temp = explode(" ", $scraped_probabilities_in_percentage[0]);
+            if ( count($array_temp) >= 21 ) {
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', $array_temp[11]);
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', $array_temp[12]);
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'away', $array_temp[13]);
+            }
+            $match = Arr::add($match, 'probabilities_in_percentage', $probabilities_in_percentage);
+    
+            array_push($predictions, [ 'match_teams' => $match ]); 
+    
+            return $match;
+        });
+
+        return $predictions;
+    }
 
 
 }
