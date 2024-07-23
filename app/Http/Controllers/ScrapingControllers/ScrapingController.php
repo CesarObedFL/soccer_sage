@@ -16,7 +16,7 @@ class ScrapingController extends Controller
 
     public function test()
     {
-        $data = null;//self::pronosticosfutbol365_scraping();
+        $data = //self::pronosticosfutbol365_scraping();
         dd($data);
     }
     

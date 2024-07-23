@@ -35,6 +35,7 @@ class MainController extends Controller
         $api_data = APIFootballController::matches_by_date();
         $bettingclosed_scraping_data = array(); //ScrapingController::bettingclosed_scraping();
         $forebet_scraping_data = array(); //ScrapingController::forebet_scraping();
+        $pronosticosfutbol365_scraping_data = ScrapingController::pronosticosfutbol365_scraping();
         
         foreach( $api_data['matches_by_league'] as $index => $league ) {
             foreach( $league['matches'] as $key => $match ) {
@@ -49,6 +50,13 @@ class MainController extends Controller
                 foreach( $forebet_scraping_data as $match_scraped ) {
                     if ( (Helpers::calculate_string_similarity($match['teams']->home->name, $match_scraped['match_teams']['home']) > 50) && (Helpers::calculate_string_similarity($match['teams']->away->name, $match_scraped['match_teams']['away']) > 50 ) ) {
                         $api_data['matches_by_league'][$index]['matches'][$key] = Arr::add($api_data['matches_by_league'][$index]['matches'][$key], 'forebet_scraping_prediction', $match_scraped );
+                        break;
+                    }
+                }
+
+                foreach( $pronosticosfutbol365_scraping_data as $match_scraped ) {
+                    if ( (Helpers::calculate_string_similarity($match['teams']->home->name, $match_scraped['match_teams']['home']) > 50) && (Helpers::calculate_string_similarity($match['teams']->away->name, $match_scraped['match_teams']['away']) > 50 ) ) {
+                        $api_data['matches_by_league'][$index]['matches'][$key] = Arr::add($api_data['matches_by_league'][$index]['matches'][$key], 'pronosticosfutbol365_scraping_data', $match_scraped );
                         break;
                     }
                 }

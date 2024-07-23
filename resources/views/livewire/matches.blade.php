@@ -53,6 +53,7 @@
                                                     <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Bet Oportunity</th>
                                                     <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Bettingclosed Prediction</th>
                                                     <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">Forebet Prediction</th>
+                                                    <th class="bg-emerald-400 !important text-center font-bold py-4 px-3">PronosticosFutbol365 Prediction</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="w-96">
@@ -109,6 +110,18 @@
                                                         <td class="py-4 px-4 text-center">
                                                             @if( isset($match['forebet_scraping_prediction']) ) 
                                                                 {{ $match['forebet_scraping_prediction']['match_teams']['home'] . ' ' . $match['forebet_scraping_prediction']['match_teams']['exact_score'] . ' ' . $match['forebet_scraping_prediction']['match_teams']['away']  }} 
+                                                            @else 
+                                                                {{ ' - ' }} 
+                                                            @endif
+                                                        </td> 
+                                                        <td class="py-4 px-4 text-center">
+                                                            @if( isset($match['pronosticosfutbol365_scraping_data']) ) 
+                                                                {{ $match['pronosticosfutbol365_scraping_data']['match_teams']['home'] . ' ' . 
+                                                                    $match['pronosticosfutbol365_scraping_data']['match_teams']['probabilities_in_percentage']['home'] . ':' . 
+                                                                    $match['pronosticosfutbol365_scraping_data']['match_teams']['probabilities_in_percentage']['draw'] . ':' . 
+                                                                    $match['pronosticosfutbol365_scraping_data']['match_teams']['probabilities_in_percentage']['away']  . ' ' . 
+                                                                    $match['pronosticosfutbol365_scraping_data']['match_teams']['away']  
+                                                                }} 
                                                             @else 
                                                                 {{ ' - ' }} 
                                                             @endif
