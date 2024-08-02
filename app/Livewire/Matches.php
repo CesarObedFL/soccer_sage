@@ -15,6 +15,6 @@ class Matches extends Component
     {
         $data = MainController::get_matches();
         //dd($data['matches_by_league'][145]);
-        return view('livewire.matches', [ 'matches_by_league' => $data['matches_by_league'] ])->layout('layouts.app');
+        return view('livewire.matches', [ 'matches_by_league' => $data['matches_by_league'], 'total_matches' => $data['total'] ])->layout('layouts.app');
     }
 }
