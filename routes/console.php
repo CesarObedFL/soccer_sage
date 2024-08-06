@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Artisan;
 
 use Illuminate\Support\Facades\Schedule;
 
-use App\Console\Commands\TestCreateUserCommand;
+use App\Console\Commands\SaveMatches;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
 
-//Schedule::command('app:auto-create-user')->dailyAt('12:35');
+Schedule::command('app:save-matches')->twiceDaily(1, 13);
