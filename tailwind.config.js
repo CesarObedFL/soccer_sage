@@ -17,6 +17,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            fontSize: {
+                'custom-xs': '0.60rem', // Ajusta el tamaño según tus necesidades
+            }
         },
     },
 
