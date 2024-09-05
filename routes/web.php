@@ -10,9 +10,8 @@ use App\Http\Controllers\ScrapingControllers\ScrapingController;
 use App\Livewire\Matches;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', Matches::class)->name('matches');
+
 
 Route::middleware([
     'auth:sanctum',
