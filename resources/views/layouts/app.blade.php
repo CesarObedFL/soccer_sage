@@ -11,10 +11,6 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- flowbite stylesheets -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-
         <link rel="icon" href="{{ asset('images/app/soccer_sage_favicon.ico') }}">
 
         <link rel="stylesheet" href="{{ asset('assets/app/styles/welcome_banner_style.css') }}">
@@ -55,12 +51,6 @@
         @livewire('wire-elements-modal')
 
         @livewireScripts
-
-        <!-- flowbite scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
     </body>
 </html>
