@@ -26,7 +26,7 @@
 
         <x-header />
 
-        <div class="font-sans text-gray-900 antialiased">
+        <div class="bg-slate-100 font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
 
