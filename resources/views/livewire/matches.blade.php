@@ -44,6 +44,10 @@
                                 </div>  
                                 <!-- league/competence info -->
 
+                                <div class="thead-custom-bg w-full rounded-lg border border-collapse text-center justify-between">
+                                    <span class="text-center text-xs font-bold py-4 px-3"></span>
+                                </div>
+
                                 <p class="mt-2">
                                     <ul>
                                         <table class="w-full text-center rounded-lg border border-collapse">

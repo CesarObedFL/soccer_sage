@@ -32,27 +32,27 @@ class ScrapingController extends Controller
         $predictions = array();
 
         $crawler = $client->request('GET', "https://www.bettingclosed.com/predictions/date-matches/$date/bet-type/correct-scores");
-
         // extracting the matches table
         $matches_table = $crawler->filter('[class="tbmatches table"]')->filter('tr')->each(function($tr, $i) use (&$predictions) {
             $match_td = $tr->filter('td')->each(function($td, $i) {
-
                 $match_date = $td->filter('[class="dataMt"]')->each(function($class, $i) {
                     return $class->text();
                 });
-                $team_home = $td->filter('[class="teamAmatch hidden-phone hidden-tablet"]')->each(function($class, $i) {
+                $team_home = $td->filter('[class="classT1"]')->filter('span')->each(function($class, $i) {
                     return $class->text();
                 });
-                $team_away = $td->filter('[class="teamBmatch hidden-phone hidden-tablet"]')->each(function($class, $i) {
+                $team_away = $td->filter('[class="teamBmatch d-none d-lg-block"]')->each(function($class, $i) {
                     return $class->text();
                 });
-                $score_prediction = $td->filter('[class="predMt"]')->each(function($class, $i) {
+                $score_prediction = $td->filter('[class="predMt"]')->filter('a')->each(function($class, $i) {
                     return $class->text();
                 });
 
                 // return found table data
+                //dd([ 'home' => $team_home, 'score_prediction' => $score_prediction, 'away' => $team_away, 'match_date' => $match_date ]);
                 return [ 'home' => $team_home, 'score_prediction' => $score_prediction, 'away' => $team_away, 'match_date' => $match_date ];
             });
+            
             
             // extracting the empty data and pushing to the predictions array only the got data
             if(count($match_td) > 0) { 
@@ -203,11 +203,11 @@ class ScrapingController extends Controller
             $match = Arr::add($match, 'away', $array_temp[1]);
             $match = Arr::add($match, 'date', $array_temp[2]);
             $match = Arr::add($match, 'exact_score', null); 
-            $array_temp = explode(" ", $scraped_probabilities_in_percentage[0]);
-            if ( count($array_temp) >= 21 ) {
-                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', $array_temp[11]);
-                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', $array_temp[12]);
-                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'away', $array_temp[13]);
+            $array_temp = explode("síno", $scraped_probabilities_in_percentage[0])[1];
+            if ( !empty($array_temp) and is_string($array_temp) ) {
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'home', substr($array_temp, 0, 2));
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'draw', substr($array_temp, 2, 2));
+                $probabilities_in_percentage = Arr::add($probabilities_in_percentage, 'away', substr($array_temp, 4, 2));
             }
             $match = Arr::add($match, 'probabilities_in_percentage', $probabilities_in_percentage);
     
