@@ -34,10 +34,10 @@
                             <div class="w-full py-4 px-6 text-gray-800 flex flex-col justify-between">
                                 <!-- league/competence info -->
                                 <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100">
-                                    <img class="object-cover w-50 px-10 rounded-t-lg h-30 md:rounded-none md:rounded-s-lg" src="{{ $league['league_logo'] }}" alt="">
-                                    <div class="flex flex-col justify-between p-8 leading-normal">
+                                    <img class="object-cover h-10 w-15 pl-5 rounded-t-lg md:rounded-none md:rounded-s-lg" src="{{ $league['league_logo'] }}" alt="">
+                                    <div class="flex flex-col justify-between p-4 pr-4 leading-normal">
                                         <h3 class="font-semibold text-lg leading-tight truncate">{{ $league['league'] }}</h3>
-                                        <p class="text-sm text-gray-700 uppercase tracking-wide font-semibold mt-2">
+                                        <p class="text-sm text-slate-600 uppercase tracking-wide font-semibold mt-2">
                                             {{ $league['country'] }} &bull; {{ $league['season'] }} &bull; {{ $league['round'] }} 
                                         </p>
                                     </div>
