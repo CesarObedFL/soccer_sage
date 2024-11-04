@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('status', ['not_started', 'first_half', 'finished']);
             $table->string('home_team', length: 50);
             $table->string('away_team', length: 50);
-            $table->string('score', Lenght: 6);                                 
+            $table->string('score', length: 6);                             
         });
     }
 
